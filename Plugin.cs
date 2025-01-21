@@ -13,7 +13,7 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
     // plugin info
     internal const string PLUGIN_GUID = "frare.CentipedeCatLaugh";
     internal const string PLUGIN_NAME = "Centipede laughing cat grab";
-    internal const string PLUGIN_VERSION = "1.0.0";
+    internal const string PLUGIN_VERSION = "1.0.1";
 
     // singleton
     internal static CentipedeCatLaughBase Instance;
