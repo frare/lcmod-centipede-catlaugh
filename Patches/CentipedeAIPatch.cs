@@ -1,20 +1,22 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
 
 namespace CentipedeCatLaugh.Patches;
 
 [HarmonyPatch(typeof(CentipedeAI))]
 internal static class CentipedeAIPatch
 {
-    [HarmonyPatch("ClingToPlayerClientRpc"), HarmonyPostfix]
-    internal static void ClingToPlayerClientRpcPostfix(ref CentipedeAI __instance)
+    [HarmonyPatch("ClingToPlayer"), HarmonyPostfix]
+    internal static void ClingToPlayerPostfix(ref CentipedeAI __instance, PlayerControllerB playerScript)
     {
         CentipedeCatLaughBase.LogMessage(
-            $"Patching \"CentipedeAI ClingToPlayerClientRpc\"... for gameObject {__instance.gameObject.name}",
-            BepInEx.Logging.LogLevel.Debug
+            $"Patching \"CentipedeAI ClingToPlayer\"... for gameObject {__instance.gameObject.name}"
         );
 
-        __instance.creatureSFX.PlayOneShot(CentipedeCatLaughBase.SnareClip);
+        var isTargetLocalPlayer = playerScript == GameNetworkManager.Instance.localPlayerController;
+        var volume = isTargetLocalPlayer ? 1f : 1.5f;
+        __instance.creatureSFX.PlayOneShot(CentipedeCatLaughBase.SnareClip, volume);
 
-        CentipedeCatLaughBase.LogMessage("Done!", BepInEx.Logging.LogLevel.Debug);
+        CentipedeCatLaughBase.LogMessage("Done!");
     }
 }

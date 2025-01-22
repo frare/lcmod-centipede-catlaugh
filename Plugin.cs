@@ -13,7 +13,7 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
     // plugin info
     internal const string PLUGIN_GUID = "frare.CentipedeCatLaugh";
     internal const string PLUGIN_NAME = "Centipede laughing cat grab";
-    internal const string PLUGIN_VERSION = "1.0.1";
+    internal const string PLUGIN_VERSION = "1.1.0";
 
     // singleton
     internal static CentipedeCatLaughBase Instance;
@@ -24,8 +24,7 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
     // harmony instance
     private readonly Harmony harmony = new(PLUGIN_GUID);
 
-    internal AudioClip snareClip;
-    public static AudioClip SnareClip { get { return Instance.snareClip; } private set { } }
+    public static AudioClip SnareClip { get; private set; }
 
     private void Awake()
     {
@@ -53,9 +52,9 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
         }
 
         var path = assetBundle.GetAllAssetNames()[0];
-        snareClip = assetBundle.LoadAsset<AudioClip>(path);
+        SnareClip = assetBundle.LoadAsset<AudioClip>(path);
 
-        if (snareClip == null)
+        if (SnareClip == null)
             logger.LogError("Failed to load custom audio");
         else
             logger.LogDebug("Custom audio loaded!");
