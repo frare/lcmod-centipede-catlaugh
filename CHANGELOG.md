@@ -2,4 +2,4 @@
 Fixed an issue causing the audio clip to not play when a Snare Flea grabs the host player
 
 ## 1.0.1
-Fixed missing dependency to BepInEx
+Removed dependency to LCSoundTools
