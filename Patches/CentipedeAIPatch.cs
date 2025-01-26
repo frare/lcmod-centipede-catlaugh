@@ -14,8 +14,10 @@ internal static class CentipedeAIPatch
         );
 
         var isTargetLocalPlayer = playerScript == GameNetworkManager.Instance.localPlayerController;
-        var volume = isTargetLocalPlayer ? 1f : 1.5f;
+        var volume = isTargetLocalPlayer ? CentipedeCatLaughBase.LocalPlayerClipVolume : CentipedeCatLaughBase.OtherPlayerClipVolume;
         __instance.creatureSFX.PlayOneShot(CentipedeCatLaughBase.SnareClip, volume);
+
+        CentipedeCatLaughBase.LogMessage($"Playing audio clip for {(isTargetLocalPlayer ? "local player" : "other player")} at volume {volume}");
 
         CentipedeCatLaughBase.LogMessage("Done!");
     }

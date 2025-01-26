@@ -13,7 +13,7 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
     // plugin info
     internal const string PLUGIN_GUID = "frare.CentipedeCatLaugh";
     internal const string PLUGIN_NAME = "Centipede laughing cat grab";
-    internal const string PLUGIN_VERSION = "1.1.0";
+    internal const string PLUGIN_VERSION = "1.2.0";
 
     // singleton
     internal static CentipedeCatLaughBase Instance;
@@ -24,6 +24,11 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
     // harmony instance
     private readonly Harmony harmony = new(PLUGIN_GUID);
 
+    // cfg file options
+    public static float LocalPlayerClipVolume { get; private set; }
+    public static float OtherPlayerClipVolume { get; private set; }
+
+    // mod audioclip reference
     public static AudioClip SnareClip { get; private set; }
 
     private void Awake()
@@ -34,6 +39,7 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
         logger.LogInfo($"Mod started! :)");
 
         LoadAssets();
+        LoadFromConfig();
 
         harmony.PatchAll();
 
@@ -58,6 +64,12 @@ public class CentipedeCatLaughBase : BaseUnityPlugin
             logger.LogError("Failed to load custom audio");
         else
             logger.LogDebug("Custom audio loaded!");
+    }
+
+    private void LoadFromConfig()
+    {
+        LocalPlayerClipVolume = Config.Bind("General", "SelfGrabbedVolume", 1f, "Volume that the clip will play when YOU are grabbed\n0 is muted, 1 is default, 1.5 is 150% the clip's original volume, etc.").Value;
+        OtherPlayerClipVolume = Config.Bind("General", "OtherGrabbedVolume", 1.5f, "Volume that the clip will play when OTHERS are grabbed\n0 is muted, 1 is default, 1.5 is 150% the clip's original volume, etc.").Value;
     }
 
     public static void LogMessage(string message, LogLevel logLevel = LogLevel.Debug)
