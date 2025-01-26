@@ -1,8 +1,10 @@
 {
     "name": "CentipedeCatLaugh",
-    "version_number": "1.1.0",
+    "version_number": "1.2.0",
+    "website_url": "",
     "donationUrl": "https://ko-fi.com/frare",
-    "description": "Plays the cat laughing meme sound when a Snare Flea (Centipede) grabs someone.",
+    "donation_url": "https://ko-fi.com/frare",
+    "description": "Plays the cat laughing meme sound when a Snare Flea (Centipede) grabs someone. Configurable!",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100"
     ]
